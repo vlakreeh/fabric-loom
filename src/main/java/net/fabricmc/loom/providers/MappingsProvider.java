@@ -113,11 +113,13 @@ public class MappingsProvider extends DependencyProvider {
 		LoomGradleExtension extension = project.getExtensions().getByType(LoomGradleExtension.class);
 		MAPPINGS_DIR = new File(extension.getUserCache(), "mappings");
 
-		project.getLogger().lifecycle(":mapping jars (" + MAPPINGS_TINY_BASE.getAbsolutePath() + ") (" + MAPPINGS_TINY.getAbsolutePath() + ") (" + MAPPINGS_MIXIN_EXPORT.getAbsolutePath() + ")");
+		
 
 		MAPPINGS_TINY_BASE = new File(MAPPINGS_DIR, mappingsName + "-tiny-" + minecraftVersion + "-" + mappingsVersion + "-base");
 		MAPPINGS_TINY = new File(MAPPINGS_DIR, mappingsName + "-tiny-" + minecraftVersion + "-" + mappingsVersion);
 		MAPPINGS_MIXIN_EXPORT = new File(extension.getProjectBuildCache(), "mixin-map-" + minecraftVersion + "-" + mappingsVersion + ".tiny");
+
+		project.getLogger().lifecycle(":mapping jars (" + MAPPINGS_TINY_BASE.getAbsolutePath() + ") (" + MAPPINGS_TINY.getAbsolutePath() + ") (" + MAPPINGS_MIXIN_EXPORT.getAbsolutePath() + ")");
 	}
 
 	@Override
