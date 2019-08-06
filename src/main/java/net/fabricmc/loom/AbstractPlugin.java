@@ -145,10 +145,10 @@ public class AbstractPlugin implements Plugin<Project> {
 					javaCompileTask.doFirst(task1 -> {
 						project.getLogger().lifecycle(":setting java compiler args");
 						try {
-							javaCompileTask.getOptions().getCompilerArgs().add("-AinMapFileNamedIntermediary=" + extension.getMappingsProvider().MAPPINGS_TINY.getCanonicalPath());
-							javaCompileTask.getOptions().getCompilerArgs().add("-AoutMapFileNamedIntermediary=" + extension.getMappingsProvider().MAPPINGS_MIXIN_EXPORT.getCanonicalPath());
+							javaCompileTask.getOptions().getCompilerArgs().add("-AinMapFileNamedOfficial=" + extension.getMappingsProvider().MAPPINGS_TINY.getCanonicalPath());
+							javaCompileTask.getOptions().getCompilerArgs().add("-AoutMapFileNamedOfficial=" + extension.getMappingsProvider().MAPPINGS_MIXIN_EXPORT.getCanonicalPath());
 							javaCompileTask.getOptions().getCompilerArgs().add("-AoutRefMapFile=" + new File(javaCompileTask.getDestinationDir(), extension.getRefmapName()).getCanonicalPath());
-							javaCompileTask.getOptions().getCompilerArgs().add("-AdefaultObfuscationEnv=named:intermediary");
+							javaCompileTask.getOptions().getCompilerArgs().add("-AdefaultObfuscationEnv=named:official");
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
