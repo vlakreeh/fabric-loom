@@ -96,16 +96,8 @@ public class RunConfig {
 		runConfig.runDir = "file://$PROJECT_DIR$/" + extension.runDir;
 		runConfig.vmArgs = "-Dfabric.development=true";
 
-		switch (extension.getLoaderLaunchMethod()) {
-			case "launchwrapper":
-				runConfig.mainClass = "net.minecraft.launchwrapper.Launch";
-				runConfig.programArgs = "--tweakClass " + ("client".equals(mode) ? Constants.DEFAULT_FABRIC_CLIENT_TWEAKER : Constants.DEFAULT_FABRIC_SERVER_TWEAKER);
-				break;
-			default:
-				runConfig.mainClass = "net.fabricmc.loader.launch.knot.Knot" + mode.substring(0, 1).toUpperCase(Locale.ROOT) + mode.substring(1).toLowerCase(Locale.ROOT);
-				runConfig.programArgs = "";
-				break;
-		}
+		runConfig.mainClass = "net.minecraft.launchwrapper.Launch";
+		runConfig.programArgs = "";
 
 		// if installer.json found...
 		JsonObject installerJson = extension.getInstallerJson();
@@ -152,10 +144,15 @@ public class RunConfig {
 		MinecraftProvider minecraftProvider =  extension.getMinecraftProvider();
 		MinecraftVersionInfo minecraftVersionInfo = minecraftProvider.versionInfo;
 
+		if (extension.tweakerClass.isEmpty()) {
+			project.getLogger().warn("No tweakClass provided, using a placeholder.");
+			extension.tweakerClass = "PlacejolderTweaker";
+		}
+
 		RunConfig ideaClient = new RunConfig();
 		populate(project, extension, ideaClient, "client");
 		ideaClient.configName = "Minecraft Client";
-		ideaClient.programArgs += " --assetIndex \"" + minecraftVersionInfo.assetIndex.getFabricId(extension.getMinecraftProvider().minecraftVersion) + "\" --assetsDir \"" + new File(extension.getUserCache(), "assets").getAbsolutePath() + "\"";
+		ideaClient.programArgs += " --assetIndex \"" + minecraftVersionInfo.assetIndex.getFabricId(extension.getMinecraftProvider().minecraftVersion) + "\" --tweakClass " + extension.tweakerClass;
 		ideaClient.vmArgs += getOSClientJVMArgs();
 
 		return ideaClient;

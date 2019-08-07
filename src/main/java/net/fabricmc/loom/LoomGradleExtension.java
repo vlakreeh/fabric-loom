@@ -55,6 +55,8 @@ public class LoomGradleExtension {
 	public boolean autoGenIDERuns = true;
 	public boolean extractJars = false;
 
+	public String tweakerClass = "";
+
 	private List<Path> unmappedModsBuilt = new ArrayList<>();
 
 	//Not to be set in the build.gradle
