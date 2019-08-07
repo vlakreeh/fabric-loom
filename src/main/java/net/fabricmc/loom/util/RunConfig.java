@@ -137,6 +137,8 @@ public class RunConfig {
 				}
 			}
 		}
+
+		runConfig.mainClass = "net.minecraft.launchwrapper.Launch";
 	}
 
 	public static RunConfig clientRunConfig(Project project){
@@ -146,7 +148,7 @@ public class RunConfig {
 
 		if (extension.tweakClass.isEmpty()) {
 			project.getLogger().warn("No tweakClass provided, using a placeholder.");
-			extension.tweakClass = "PlacejolderTweaker";
+			extension.tweakClass = "PlaceholderTweaker";
 		}
 
 		RunConfig ideaClient = new RunConfig();
