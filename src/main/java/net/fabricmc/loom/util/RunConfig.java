@@ -98,7 +98,7 @@ public class RunConfig {
 
 		try {
 			project.getLogger().lifecycle(":downloading assets into run directory");
-			MinecraftAssetsProvider.provide(extension.getMinecraftProvider(), project, new File(runConfig.runDir));
+			MinecraftAssetsProvider.provide(extension.getMinecraftProvider(), project, new File(extension.runDir));
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}
