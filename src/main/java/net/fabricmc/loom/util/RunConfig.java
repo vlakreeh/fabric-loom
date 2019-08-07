@@ -144,15 +144,15 @@ public class RunConfig {
 		MinecraftProvider minecraftProvider =  extension.getMinecraftProvider();
 		MinecraftVersionInfo minecraftVersionInfo = minecraftProvider.versionInfo;
 
-		if (extension.tweakerClass.isEmpty()) {
+		if (extension.tweakClass.isEmpty()) {
 			project.getLogger().warn("No tweakClass provided, using a placeholder.");
-			extension.tweakerClass = "PlacejolderTweaker";
+			extension.tweakClass = "PlacejolderTweaker";
 		}
 
 		RunConfig ideaClient = new RunConfig();
 		populate(project, extension, ideaClient, "client");
 		ideaClient.configName = "Minecraft Client";
-		ideaClient.programArgs += " --assetIndex \"" + minecraftVersionInfo.assetIndex.getFabricId(extension.getMinecraftProvider().minecraftVersion) + "\" --tweakClass " + extension.tweakerClass;
+		ideaClient.programArgs += " --assetIndex \"" + minecraftVersionInfo.assetIndex.getFabricId(extension.getMinecraftProvider().minecraftVersion) + "\" --tweakClass " + extension.tweakClass + " --accessToken \"\" --version " + extension.getMinecraftProvider().minecraftVersion;
 		ideaClient.vmArgs += getOSClientJVMArgs();
 
 		return ideaClient;

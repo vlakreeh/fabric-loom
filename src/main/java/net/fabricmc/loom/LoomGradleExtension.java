@@ -55,7 +55,7 @@ public class LoomGradleExtension {
 	public boolean autoGenIDERuns = true;
 	public boolean extractJars = false;
 
-	public String tweakerClass = "";
+	public String tweakClass = "";
 
 	private List<Path> unmappedModsBuilt = new ArrayList<>();
 
