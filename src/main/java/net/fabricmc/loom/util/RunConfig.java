@@ -96,13 +96,6 @@ public class RunConfig {
 		runConfig.runDir = "file://$PROJECT_DIR$/" + extension.runDir;
 		runConfig.vmArgs = "-Dfabric.development=true";
 
-		try {
-			project.getLogger().lifecycle(":downloading assets into run directory");
-			MinecraftAssetsProvider.provide(extension.getMinecraftProvider(), project, new File(extension.runDir));
-		} catch (IOException exception) {
-			exception.printStackTrace();
-		}
-
 		switch (extension.getLoaderLaunchMethod()) {
 			case "launchwrapper":
 				runConfig.mainClass = "net.minecraft.launchwrapper.Launch";

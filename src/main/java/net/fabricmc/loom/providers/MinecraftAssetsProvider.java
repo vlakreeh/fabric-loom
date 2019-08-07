@@ -49,6 +49,8 @@ public class MinecraftAssetsProvider {
 		File assets = new File(extension.getUserCache(), "assets");
 		
 		provide(minecraftProvider, project, assets);
+		project.getLogger().lifecycle(":downloading assets into run directory");
+		provide(minecraftProvider, project, new File(extension.runDir + File.separator + "assets"));
 	}
 
 	public static void provide(MinecraftProvider minecraftProvider, Project project, File assets) throws IOException {
