@@ -46,15 +46,17 @@ import java.util.Map;
 public class MinecraftAssetsProvider {
 	public static void provide(MinecraftProvider minecraftProvider, Project project) throws IOException {
 		LoomGradleExtension extension = project.getExtensions().getByType(LoomGradleExtension.class);
-		boolean offline = project.getGradle().getStartParameter().isOffline();
+		File assets = new File(extension.getUserCache(), "assets");
+		
+		provide(minecraftProvider, project, assets);
+	}
 
-		project.getLogger().lifecycle(":current dir (" + new File("").getAbsolutePath() + ")");
+	public static void provide(MinecraftProvider minecraftProvider, Project project, File assets) throws IOException {
+		boolean offline = project.getGradle().getStartParameter().isOffline();
 
 		MinecraftVersionInfo versionInfo = minecraftProvider.versionInfo;
 		MinecraftVersionInfo.AssetIndex assetIndex = versionInfo.assetIndex;
 
-		// get existing cache files
-		File assets = new File(extension.getUserCache(), "assets");
 		if (!assets.exists()) {
 			assets.mkdirs();
 		}

@@ -24,21 +24,6 @@
 
 package net.fabricmc.loom.util;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import net.fabricmc.loom.LoomGradleExtension;
-import net.fabricmc.loom.providers.MinecraftProvider;
-import org.apache.commons.io.IOUtils;
-import org.gradle.api.Project;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +31,25 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import org.apache.commons.io.IOUtils;
+import org.gradle.api.Project;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
+import net.fabricmc.loom.LoomGradleExtension;
+import net.fabricmc.loom.providers.MinecraftAssetsProvider;
+import net.fabricmc.loom.providers.MinecraftProvider;
 
 public class RunConfig {
 	public String configName;
@@ -91,6 +95,13 @@ public class RunConfig {
 		runConfig.projectName = project.getName();
 		runConfig.runDir = "file://$PROJECT_DIR$/" + extension.runDir;
 		runConfig.vmArgs = "-Dfabric.development=true";
+
+		try {
+			project.getLogger().lifecycle(":downloading assets into run directory");
+			MinecraftAssetsProvider.provide(extension.getMinecraftProvider(), project, new File(runConfig.runDir));
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
 
 		switch (extension.getLoaderLaunchMethod()) {
 			case "launchwrapper":
