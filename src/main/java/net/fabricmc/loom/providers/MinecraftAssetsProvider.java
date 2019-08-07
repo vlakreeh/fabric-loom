@@ -48,6 +48,8 @@ public class MinecraftAssetsProvider {
 		LoomGradleExtension extension = project.getExtensions().getByType(LoomGradleExtension.class);
 		boolean offline = project.getGradle().getStartParameter().isOffline();
 
+		project.getLogger().lifecycle(":current dir (" + new File(".").getAbsolutePath() + ")");
+
 		MinecraftVersionInfo versionInfo = minecraftProvider.versionInfo;
 		MinecraftVersionInfo.AssetIndex assetIndex = versionInfo.assetIndex;
 
