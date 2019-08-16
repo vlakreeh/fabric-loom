@@ -54,6 +54,7 @@ public class LoomGradleExtension {
 	public boolean remapMod = true;
 	public boolean autoGenIDERuns = true;
 	public boolean extractJars = false;
+	public String customManifest = null;
 
 	public String tweakClass = "";
 
